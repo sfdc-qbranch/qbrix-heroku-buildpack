@@ -44,8 +44,19 @@ install_jq() {
 }
 
 install_testim_cli() {
-log "Installing Testim.io CLI via NPM..."
-npm install -g @testim/testim-cli
+  log "Installing Testim.io CLI via NPM..."
+  npm install -g @testim/testim-cli
+}
+
+install_sfdx_plugins() {
+  log "Creating Plugin Allow List and installing SFDX plugins..."
+  mkdir -p $HOME/.config/sfdx
+  cat <<EOF >$HOME/.config/sfdx/unsignedPluginAllowList.json
+  [
+    "shane-sfdx-plugins"
+  ]
+  EOF
+  sfdx plugins:install shane-sfdx-plugins
 }
 
 setup_dirs() {
@@ -67,6 +78,9 @@ debug "BP_DIR: $BP_DIR"
 setup_dirs
 log "Starting CLI installation ..."
 install_sfdx_cli
+
+log "Starting SFDX Plugin installation..."
+install_sfdx_plugins
 
 log "Starting jq installation ..."
 install_jq
