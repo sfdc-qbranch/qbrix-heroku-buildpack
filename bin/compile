@@ -43,6 +43,11 @@ install_jq() {
   chmod +x jq
 }
 
+install_testim_cli() {
+log "Installing Testim.io CLI via NPM..."
+npm install -g @testim/testim-cli
+}
+
 setup_dirs() {
   export PATH="$BUILD_DIR/vendor/sfdx/cli/bin:$PATH"
   export PATH="$BUILD_DIR/vendor/sfdx/jq:$PATH"
@@ -65,6 +70,9 @@ install_sfdx_cli
 
 log "Starting jq installation ..."
 install_jq
+
+log "Starting Testim installation..."
+install_testim_cli
 
 # Create .profile.d folder
 mkdir -p $BUILD_DIR/.profile.d
